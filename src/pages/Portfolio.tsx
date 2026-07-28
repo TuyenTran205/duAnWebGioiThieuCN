@@ -115,7 +115,7 @@ export const Portfolio: React.FC = () => {
                           <div className="mt-auto">
                             <div className="d-flex flex-wrap gap-1.5 mb-3">
                               {project.technologies && project.technologies.map((tech, idx) => (
-                                <Badge key={idx} bg="dark" className="text-light" style={{ fontSize: '0.7rem', padding: '4px 8px' }}>
+                                <Badge key={idx} bg="secondary" className="bg-opacity-25 text-body" style={{ fontSize: '0.7rem', padding: '4px 8px' }}>
                                   {tech}
                                 </Badge>
                               ))}

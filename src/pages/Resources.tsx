@@ -129,7 +129,7 @@ export const Resources: React.FC = () => {
                   {filteredDocuments.length > 0 ? (
                     filteredDocuments.map((doc) => (
                       <tr key={doc.id}>
-                        <td className="fw-semibold text-light">{doc.title}</td>
+                        <td className="fw-semibold">{doc.title}</td>
                         <td>{doc.category}</td>
                         <td>
                           <span className="badge bg-secondary text-light px-2 py-1">
