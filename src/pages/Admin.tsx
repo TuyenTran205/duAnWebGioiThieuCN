@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Tabs, Tab, Form, Button, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
+import { Container, Tabs, Tab, Form, Button, Row, Col, Card, Alert, Spinner, Table, Modal } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { supabase } from '../lib/supabaseClient';
 import type { Session } from '@supabase/supabase-js';
@@ -32,6 +32,50 @@ export const Admin: React.FC = () => {
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
 
   const categories: DocumentCategory[] = ['Đại cương', 'Lập trình', 'Business Analyst', 'Machine Learning'];
+  const projectTypes = ['Web Development', 'Mobile App', 'AI Application', 'Desktop App', 'Other'];
+
+  // Add Project state
+  const [projTitle, setProjTitle] = useState<string>('');
+  const [projDesc, setProjDesc] = useState<string>('');
+  const [projTechText, setProjTechText] = useState<string>('');
+  const [projType, setProjType] = useState<string>('');
+  const [projLink, setProjLink] = useState<string>('');
+  const [projLoading, setProjLoading] = useState<boolean>(false);
+  const [projError, setProjError] = useState<string | null>(null);
+  const [projSuccess, setProjSuccess] = useState<string | null>(null);
+
+  // Manage Documents state
+  const [documents, setDocuments] = useState<any[]>([]);
+  const [docsLoading, setDocsLoading] = useState<boolean>(false);
+  const [docsError, setDocsError] = useState<string | null>(null);
+  const [docsSuccess, setDocsSuccess] = useState<string | null>(null);
+
+  // Edit Document Modal state
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [editDocId, setEditDocId] = useState<number | string | null>(null);
+  const [editDocTitle, setEditDocTitle] = useState<string>('');
+  const [editDocCategory, setEditDocCategory] = useState<DocumentCategory | ''>('');
+  const [editDocLoading, setEditDocLoading] = useState<boolean>(false);
+
+  const fetchDocuments = async () => {
+    setDocsLoading(true);
+    try {
+      const { data, error } = await supabase.from('documents').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      setDocuments(data || []);
+    } catch (err: any) {
+      setDocsError(err.message || 'Failed to fetch documents.');
+    } finally {
+      setDocsLoading(false);
+    }
+  };
+
+  // Fetch documents when session changes
+  useEffect(() => {
+    if (session) {
+      fetchDocuments();
+    }
+  }, [session]);
 
   // Check auth session
   useEffect(() => {
@@ -180,16 +224,31 @@ export const Admin: React.FC = () => {
       const fileSize = docFile.size > 1024 * 1024
         ? `${(docFile.size / (1024 * 1024)).toFixed(1)} MB`
         : `${(docFile.size / 1024).toFixed(1)} KB`;
-      // Insert row to documents table
-      const { error: insertError } = await supabase
+      
+      // Try inserting with 'downloadurl' as Postgres lowercases unquoted identifiers.
+      let { error: insertError } = await supabase
         .from('documents')
         .insert({
           title: docTitle,
           category: docCategory,
           format,
           size: fileSize,
-          downloadUrl: publicUrl
+          downloadurl: publicUrl
         });
+        
+      // Fallback in case they explicitly named it download_url
+      if (insertError && insertError.message.includes('downloadurl')) {
+        const fallbackRes = await supabase
+          .from('documents')
+          .insert({
+            title: docTitle,
+            category: docCategory,
+            format,
+            size: fileSize,
+            download_url: publicUrl
+          });
+        insertError = fallbackRes.error;
+      }
 
       if (insertError) throw insertError;
 
@@ -205,6 +264,97 @@ export const Admin: React.FC = () => {
       setUploadError(err.message || 'Failed to upload document.');
     } finally {
       setUploadLoading(false);
+    }
+  };
+
+  const handleProjectSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProjError(null);
+    setProjSuccess(null);
+    setProjLoading(true);
+
+    const techArray = projTechText
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
+
+    try {
+      const { error } = await supabase
+        .from('projects')
+        .insert({
+          title: projTitle,
+          description: projDesc,
+          technologies: techArray,
+          type: projType,
+          link: projLink
+        });
+
+      if (error) throw error;
+      setProjSuccess('Project added successfully.');
+      setProjTitle('');
+      setProjDesc('');
+      setProjTechText('');
+      setProjType('');
+      setProjLink('');
+    } catch (err: any) {
+      setProjError(err.message || 'Failed to add project.');
+    } finally {
+      setProjLoading(false);
+    }
+  };
+
+  const handleDeleteDoc = async (id: string | number, fileUrl: string | undefined) => {
+    if (!window.confirm('Are you sure you want to delete this document?')) return;
+    setDocsError(null);
+    setDocsSuccess(null);
+    try {
+      if (fileUrl) {
+        const urlParts = fileUrl.split('/document_files/');
+        if (urlParts.length === 2) {
+          const filePath = urlParts[1];
+          await supabase.storage.from('document_files').remove([filePath]);
+        }
+      }
+
+      const { error } = await supabase.from('documents').delete().eq('id', id);
+      if (error) throw error;
+
+      setDocsSuccess('Document deleted successfully.');
+      fetchDocuments(); 
+    } catch (err: any) {
+      setDocsError(err.message || 'Failed to delete document.');
+    }
+  };
+
+  const handleEditClick = (doc: any) => {
+    setEditDocId(doc.id);
+    setEditDocTitle(doc.title);
+    setEditDocCategory(doc.category as DocumentCategory);
+    setShowEditModal(true);
+  };
+
+  const handleUpdateDoc = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editDocId) return;
+    setEditDocLoading(true);
+    setDocsError(null);
+    setDocsSuccess(null);
+
+    try {
+      const { error } = await supabase
+        .from('documents')
+        .update({ title: editDocTitle, category: editDocCategory })
+        .eq('id', editDocId);
+
+      if (error) throw error;
+
+      setDocsSuccess('Document updated successfully.');
+      setShowEditModal(false);
+      fetchDocuments();
+    } catch (err: any) {
+      setDocsError(err.message || 'Failed to update document.');
+    } finally {
+      setEditDocLoading(false);
     }
   };
 
@@ -434,11 +584,193 @@ export const Admin: React.FC = () => {
                     </Button>
                   </Form>
                 </Tab>
+
+                <Tab eventKey="add-project" title="Add Project">
+                  {projError && (
+                    <Alert variant="danger" className="border-0 bg-opacity-10 bg-danger text-danger mt-3">
+                      {projError}
+                    </Alert>
+                  )}
+                  {projSuccess && (
+                    <Alert variant="success" className="border-0 bg-opacity-10 bg-success text-success mt-3">
+                      {projSuccess}
+                    </Alert>
+                  )}
+
+                  <Form onSubmit={handleProjectSubmit} className="mt-3">
+                    <Form.Group className="mb-3" controlId="projTitle">
+                      <Form.Label className="text-secondary">Project Title</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter project title"
+                        value={projTitle}
+                        onChange={(e) => setProjTitle(e.target.value)}
+                        className="form-control"
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="projDesc">
+                      <Form.Label className="text-secondary">Description</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Enter project description"
+                        value={projDesc}
+                        onChange={(e) => setProjDesc(e.target.value)}
+                        className="form-control"
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="projTech">
+                      <Form.Label className="text-secondary">Technologies (Comma-separated)</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="React, TypeScript, Bootstrap"
+                        value={projTechText}
+                        onChange={(e) => setProjTechText(e.target.value)}
+                        className="form-control"
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="projType">
+                      <Form.Label className="text-secondary">Project Type</Form.Label>
+                      <Form.Select
+                        value={projType}
+                        onChange={(e) => setProjType(e.target.value)}
+                        className="custom-select"
+                        required
+                      >
+                        <option value="">Select type...</option>
+                        {projectTypes.map((type, idx) => (
+                          <option key={idx} value={type}>{type}</option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-4" controlId="projLink">
+                      <Form.Label className="text-secondary">Project Link</Form.Label>
+                      <Form.Control
+                        type="url"
+                        placeholder="https://github.com/..."
+                        value={projLink}
+                        onChange={(e) => setProjLink(e.target.value)}
+                        className="form-control"
+                        required
+                      />
+                    </Form.Group>
+
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="w-100"
+                      disabled={projLoading}
+                      style={{ background: 'var(--primary-gradient)', border: 'none', padding: '10px' }}
+                    >
+                      {projLoading ? <Spinner size="sm" animation="border" /> : 'Add Project'}
+                    </Button>
+                  </Form>
+                </Tab>
+
+                <Tab eventKey="manage-docs" title="Manage Documents">
+                  {docsError && (
+                    <Alert variant="danger" className="border-0 bg-opacity-10 bg-danger text-danger mt-3">
+                      {docsError}
+                    </Alert>
+                  )}
+                  {docsSuccess && (
+                    <Alert variant="success" className="border-0 bg-opacity-10 bg-success text-success mt-3">
+                      {docsSuccess}
+                    </Alert>
+                  )}
+
+                  <div className="mt-4 table-responsive">
+                    {docsLoading ? (
+                      <div className="text-center py-4">
+                        <Spinner animation="border" variant="primary" />
+                      </div>
+                    ) : (
+                      <Table className="custom-table" hover>
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th className="text-end">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {documents.length > 0 ? documents.map(doc => (
+                            <tr key={doc.id}>
+                              <td className="text-body fw-semibold align-middle">{doc.title}</td>
+                              <td className="align-middle text-body">{doc.category}</td>
+                              <td className="text-end">
+                                <Button variant="outline-primary" size="sm" className="me-2" onClick={() => handleEditClick(doc)}>
+                                  Edit
+                                </Button>
+                                <Button variant="outline-danger" size="sm" onClick={() => handleDeleteDoc(doc.id, doc.downloadUrl || doc.downloadurl || doc.download_url)}>
+                                  Delete
+                                </Button>
+                              </td>
+                            </tr>
+                          )) : (
+                            <tr>
+                              <td colSpan={3} className="text-center text-secondary py-3">No documents found.</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </Table>
+                    )}
+                  </div>
+                </Tab>
               </Tabs>
             </Card>
           </Col>
         </Row>
       </Container>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)} contentClassName="bg-body text-body">
+        <Form onSubmit={handleUpdateDoc}>
+          <Modal.Header closeButton className="border-secondary border-opacity-25">
+            <Modal.Title>Edit Document</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group className="mb-3">
+              <Form.Label className="text-secondary">Document Title</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={editDocTitle}
+                onChange={(e) => setEditDocTitle(e.target.value)}
+                className="form-control"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="text-secondary">Category</Form.Label>
+              <Form.Select
+                required
+                value={editDocCategory}
+                onChange={(e) => setEditDocCategory(e.target.value as DocumentCategory)}
+                className="custom-select"
+              >
+                <option value="">Select category...</option>
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>{cat}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer className="border-secondary border-opacity-25">
+            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit" disabled={editDocLoading} style={{ background: 'var(--primary-gradient)', border: 'none' }}>
+              {editDocLoading ? <Spinner size="sm" animation="border" /> : 'Save Changes'}
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </>
   );
 };

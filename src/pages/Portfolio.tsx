@@ -40,7 +40,15 @@ export const Portfolio: React.FC = () => {
         if (fetchError) throw fetchError;
 
         if (data && data.length > 0) {
-          setProjects(data as Project[]);
+          // Gộp link Github từ file projects.ts đè lên dữ liệu từ Supabase nếu có cập nhật
+          const mergedData = data.map((dbProject: any) => {
+            const localProject = mockProjects.find(p => p.id === dbProject.id?.toString() || p.id === dbProject.id);
+            if (localProject && localProject.link && localProject.link !== '#') {
+              return { ...dbProject, link: localProject.link };
+            }
+            return dbProject;
+          });
+          setProjects(mergedData as Project[]);
         } else {
           setProjects(mockProjects);
         }
@@ -59,7 +67,7 @@ export const Portfolio: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Portfolio | Tran Van Tuyen</title>
+        <title>Portfolio | Trần Văn Tuyên</title>
       </Helmet>
       <Container className="py-5">
         <motion.div

@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           </Col>
           <Col md="auto" className="text-center text-md-end">
             <a
-              href="https://github.com"
+              href="https://github.com/dashboard"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted mx-2 transition-colors hover:text-white"
@@ -31,11 +31,13 @@ export const Footer: React.FC = () => {
               LinkedIn
             </a>
             <a
-              href="mailto:tuyen@example.com"
+              href="https://web.facebook.com/t.v.tuyen21?locale=vi_VN"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted mx-2 hover:text-white"
               style={{ textDecoration: 'none' }}
             >
-              Contact
+              Facebook
             </a>
           </Col>
         </Row>

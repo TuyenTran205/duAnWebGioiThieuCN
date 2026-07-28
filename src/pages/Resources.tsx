@@ -48,7 +48,7 @@ export const Resources: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Kho Tài Liệu TLU | Tran Van Tuyen</title>
+        <title>Kho Tài Liệu TLU | Trần Văn Tuyên</title>
       </Helmet>
       <Container className="py-5">
         <motion.div
@@ -140,7 +140,7 @@ export const Resources: React.FC = () => {
                         <td>{new Date(doc.created_at).toISOString().split('T')[0]}</td>
                         <td className="text-end">
                           <Button
-                            href={doc.downloadUrl}
+                            href={doc.downloadUrl || (doc as any).downloadurl || (doc as any).download_url || '#'}
                             variant="primary"
                             size="sm"
                             target="_blank"

@@ -11,7 +11,7 @@ export const NavigationBar: React.FC = () => {
     <Navbar expand="lg" className="custom-navbar sticky-top">
       <Container>
         <Navbar.Brand as={NavLink} to="/">
-          Tran Van Tuyen
+          Trần Văn Tuyên
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

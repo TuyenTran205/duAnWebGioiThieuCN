@@ -120,6 +120,34 @@ export const Home: React.FC = () => {
                     </Col>
                   </Row>
                 </motion.div>
+
+                <hr className="my-5 border-secondary" style={{ opacity: 0.15 }} />
+
+                {/* Contact Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+                >
+                  <Row className="justify-content-center">
+                    <Col lg={8} md={10} className="text-center">
+                      <h3 className="mb-4" style={{ fontWeight: 600 }}>
+                        Contact Information
+                      </h3>
+                      <div className="d-flex flex-column align-items-center gap-2">
+                        <div className="text-body" style={{ fontSize: '1.1rem' }}>
+                          <span className="text-secondary me-2">Phone:</span> 
+                          0376354782
+                        </div>
+                        <div className="text-body" style={{ fontSize: '1.1rem' }}>
+                          <span className="text-secondary me-2">Email:</span> 
+                          tranvantuyen2110.work@gmail.com
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </motion.div>
               </>
             )}
           </>
