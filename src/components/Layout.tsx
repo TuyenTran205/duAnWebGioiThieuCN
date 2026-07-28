@@ -7,7 +7,7 @@ import Footer from './Footer';
 export const Layout: React.FC = () => {
   return (
     <HelmetProvider>
-      <div className="d-flex flex-column bg-body text-body min-vh-100">
+      <div className="min-vh-100 bg-body text-body d-flex flex-column">
         <NavigationBar />
         <main className="flex-shrink-0 my-5">
           <Outlet />
