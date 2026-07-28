@@ -67,36 +67,41 @@ export const Home: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="py-4 py-lg-5"
                 >
-                  <Row className="justify-content-center text-center mb-5">
+                  <Row className="justify-content-center text-center">
                     <Col lg={8} md={10}>
                       <div className="mb-4">
                         <span className="hero-subtitle text-uppercase">Welcome to My Space</span>
                       </div>
                       <h1 className="hero-title mb-4">{profile.name}</h1>
                       <div className="d-flex flex-wrap justify-content-center gap-2 mb-4">
-                        {profile.roles && profile.roles.map((role, idx) => (
-                          <Badge
-                            key={idx}
-                            bg="transparent"
-                            className="border border-secondary text-secondary px-3 py-2"
-                            style={{ borderRadius: '20px', fontSize: '0.85rem' }}
-                          >
-                            {role}
-                          </Badge>
-                        ))}
+                        {profile.roles && profile.roles.map((role, idx) => {
+                          const badgeColors = ['badge-blue', 'badge-purple', 'badge-pink', 'badge-orange', 'badge-green'];
+                          const colorClass = badgeColors[idx % badgeColors.length];
+                          return (
+                            <Badge
+                              key={idx}
+                              bg="transparent"
+                              className={`badge-pastel ${colorClass} px-3 py-2`}
+                              style={{ fontSize: '0.85rem' }}
+                            >
+                              {role}
+                            </Badge>
+                          );
+                        })}
                       </div>
                       <p className="lead text-secondary mb-5" style={{ fontSize: '1.25rem', lineHeight: '1.6' }}>
                         {profile.bio}
                       </p>
-                      <p className="text-secondary">
+                      <p className="text-secondary mb-0">
                         Currently studying at <strong>{profile.university}</strong>.
                       </p>
                     </Col>
                   </Row>
                 </motion.div>
 
-                <hr className="my-5 border-secondary" style={{ opacity: 0.15 }} />
+                <hr className="my-2 border-secondary" style={{ opacity: 0.08 }} />
 
                 {/* Skills Section */}
                 <motion.div
@@ -104,6 +109,7 @@ export const Home: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+                  className="py-4 py-lg-5"
                 >
                   <Row className="justify-content-center">
                     <Col lg={8} md={10}>
@@ -111,17 +117,21 @@ export const Home: React.FC = () => {
                         Technical Expertise
                       </h3>
                       <div className="d-flex flex-wrap justify-content-center gap-3">
-                        {profile.skills && profile.skills.map((skill, idx) => (
-                          <Badge key={idx} className="skill-badge">
-                            {skill}
-                          </Badge>
-                        ))}
+                        {profile.skills && profile.skills.map((skill, idx) => {
+                          const badgeColors = ['badge-blue', 'badge-green', 'badge-purple', 'badge-orange', 'badge-pink', 'badge-red', 'badge-gray'];
+                          const colorClass = badgeColors[idx % badgeColors.length];
+                          return (
+                            <Badge key={idx} bg="transparent" className={`skill-badge badge-pastel ${colorClass} px-3 py-2`}>
+                              {skill}
+                            </Badge>
+                          );
+                        })}
                       </div>
                     </Col>
                   </Row>
                 </motion.div>
 
-                <hr className="my-5 border-secondary" style={{ opacity: 0.15 }} />
+                <hr className="my-2 border-secondary" style={{ opacity: 0.08 }} />
 
                 {/* Contact Section */}
                 <motion.div
@@ -129,6 +139,7 @@ export const Home: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+                  className="py-4 py-lg-5"
                 >
                   <Row className="justify-content-center">
                     <Col lg={8} md={10} className="text-center">

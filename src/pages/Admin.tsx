@@ -167,7 +167,7 @@ export const Admin: React.FC = () => {
           .insert({
             name: 'Tran Van Tuyen',
             university: 'Thuy Loi University (TLU)',
-            roles: ['IT Student', 'Aspiring Business Analyst', 'Machine Learning Enthusiast'],
+            roles: ['IT Student', 'Aspiring Business Analyst'],
             bio,
             skills: skillsArray
           });

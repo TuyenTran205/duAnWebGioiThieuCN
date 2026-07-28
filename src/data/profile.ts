@@ -11,10 +11,9 @@ export const userProfile: Profile = {
   university: 'Thuy Loi University (TLU)',
   roles: [
     'IT Student',
-    'Aspiring Business Analyst',
-    'Machine Learning Enthusiast'
+    'Aspiring Business Analyst'
   ],
-  bio: 'A passionate IT student at Thuy Loi University, focused on software development, business analysis, and machine learning solutions.',
+  bio: 'A passionate IT student at Thuy Loi University, focused on software development and business analysis.',
   skills: [
     'Java',
     'C++',

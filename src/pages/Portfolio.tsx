@@ -23,6 +23,15 @@ const cardVariants = {
   }
 };
 
+const getTypeColorClass = (type: string) => {
+  if (!type) return 'badge-blue';
+  const t = type.toLowerCase();
+  if (t.includes('ai') || t.includes('intelligence')) return 'badge-purple';
+  if (t.includes('team') || t.includes('nhóm')) return 'badge-orange';
+  if (t.includes('web') || t.includes('dev') || t.includes('lập trình')) return 'badge-green';
+  return 'badge-blue';
+};
+
 export const Portfolio: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -106,41 +115,53 @@ export const Portfolio: React.FC = () => {
               viewport={{ once: true, margin: '-50px' }}
             >
               <Row className="g-4">
-                {projects.map((project) => (
-                  <Col lg={4} md={6} key={project.id}>
-                    <motion.div variants={cardVariants} className="h-100">
-                      <Card className="project-card d-flex flex-column h-100">
-                        <Card.Body className="d-flex flex-column p-4">
-                          <div className="mb-3">
-                            <Badge bg="secondary" className="bg-opacity-10 text-secondary border border-secondary border-opacity-25 px-2.5 py-1.5" style={{ fontSize: '0.75rem' }}>
-                              {project.type}
-                            </Badge>
-                          </div>
-                          <Card.Title className="mb-3">{project.title}</Card.Title>
-                          <Card.Text className="flex-grow-1 text-secondary mb-4" style={{ fontSize: '0.95rem' }}>
-                            {project.description}
-                          </Card.Text>
-                          <div className="mt-auto">
-                            <div className="d-flex flex-wrap gap-1.5 mb-3">
-                              {project.technologies && project.technologies.map((tech, idx) => (
-                                <Badge key={idx} bg="secondary" className="bg-opacity-25 text-body" style={{ fontSize: '0.7rem', padding: '4px 8px' }}>
-                                  {tech}
-                                </Badge>
-                              ))}
+                {projects.map((project) => {
+                  const typeClass = getTypeColorClass(project.type);
+                  return (
+                    <Col xs={12} md={6} lg={4} key={project.id}>
+                      <motion.div variants={cardVariants} className="h-100">
+                        <Card className="project-card d-flex flex-column h-100">
+                          <Card.Body className="d-flex flex-column p-4">
+                            <div className="mb-3">
+                              <Badge bg="transparent" className={`badge-pastel ${typeClass} px-3 py-1.5`} style={{ fontSize: '0.75rem' }}>
+                                {project.type}
+                              </Badge>
                             </div>
-                            <Card.Link
-                              href={project.link}
-                              className="btn btn-outline-primary btn-sm w-100 border-secondary text-secondary"
-                              style={{ transition: 'all 0.2s' }}
-                            >
-                              View Details
-                            </Card.Link>
-                          </div>
-                        </Card.Body>
-                      </Card>
-                    </motion.div>
-                  </Col>
-                ))}
+                            <Card.Title className="mb-3">{project.title}</Card.Title>
+                            <Card.Text className="flex-grow-1 text-secondary mb-4" style={{ fontSize: '0.95rem' }}>
+                              {project.description}
+                            </Card.Text>
+                            <div className="mt-auto">
+                              <div className="d-flex flex-wrap gap-2 mb-4">
+                                {project.technologies && project.technologies.map((tech, idx) => {
+                                  const techColors = ['badge-blue', 'badge-green', 'badge-purple', 'badge-orange', 'badge-pink', 'badge-red', 'badge-gray'];
+                                  const colorClass = techColors[idx % techColors.length];
+                                  return (
+                                    <Badge
+                                      key={idx}
+                                      bg="transparent"
+                                      className={`badge-pastel ${colorClass}`}
+                                      style={{ fontSize: '0.7rem', padding: '5px 10px' }}
+                                    >
+                                      {tech}
+                                    </Badge>
+                                  );
+                                })}
+                              </div>
+                              <Card.Link
+                                href={project.link}
+                                className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center"
+                                style={{ minHeight: '44px' }}
+                              >
+                                View Details
+                              </Card.Link>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      </motion.div>
+                    </Col>
+                  );
+                })}
               </Row>
             </motion.div>
           </>

@@ -1,54 +1,100 @@
 /* Custom variables for Dark Theme */
 [data-bs-theme="dark"] {
-  --bg-color: #1a2744;
-  --bs-body-bg: #1a2744;
-  --bs-body-bg-rgb: 26, 39, 68;
-  --bs-body-color: #e2e8f0;
-  --bs-body-color-rgb: 226, 232, 240;
-  --card-bg: rgba(30, 45, 80, 0.8);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --text-primary: #e2e8f0;
+  --bg-color: #0f172a;
+  --bs-body-bg: #0f172a;
+  --bs-body-bg-rgb: 15, 23, 42;
+  --bs-body-color: #cbd5e1;
+  --bs-body-color-rgb: 203, 213, 225;
+  
+  --card-bg: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --accent-color: #64ffda;
-  --shadow-color: rgba(100, 255, 218, 0.15);
-  --nav-bg: rgba(15, 25, 55, 0.85);
-  --badge-bg: rgba(100, 255, 218, 0.15);
-  --badge-color: #64ffda;
+  --accent-color: #38bdf8;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --nav-bg: rgba(15, 23, 42, 0.8);
+  
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.45);
+  
+  /* Pastel color scheme for dark theme status badges */
+  --badge-blue-bg: rgba(56, 189, 248, 0.16);
+  --badge-blue-color: #38bdf8;
+  --badge-green-bg: rgba(52, 211, 153, 0.16);
+  --badge-green-color: #34d399;
+  --badge-purple-bg: rgba(192, 132, 252, 0.16);
+  --badge-purple-color: #c084fc;
+  --badge-orange-bg: rgba(251, 191, 36, 0.16);
+  --badge-orange-color: #fbbf24;
+  --badge-red-bg: rgba(248, 113, 113, 0.16);
+  --badge-red-color: #f87171;
+  --badge-pink-bg: rgba(244, 63, 94, 0.16);
+  --badge-pink-color: #f43f5e;
+  --badge-gray-bg: rgba(148, 163, 184, 0.16);
+  --badge-gray-color: #94a3b8;
 }
 
 /* Custom variables for Light Theme */
 [data-bs-theme="light"] {
-  --bg-color: #ffffff;
-  --bs-body-bg: #ffffff;
-  --bs-body-bg-rgb: 255, 255, 255;
-  --bs-body-color: #0f172a;
-  --bs-body-color-rgb: 15, 23, 42;
-  --card-bg: rgba(241, 245, 249, 0.85);
-  --border-color: rgba(15, 23, 42, 0.08);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --accent-color: #4f46e5;
-  --shadow-color: rgba(99, 102, 241, 0.08);
+  --bg-color: #f4f6f8;
+  --bs-body-bg: #f4f6f8;
+  --bs-body-bg-rgb: 244, 246, 248;
+  --bs-body-color: #1e293b;
+  --bs-body-color-rgb: 30, 41, 59;
+  
+  --card-bg: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.05);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent-color: #0073ea; /* monday.com signature blue */
+  --shadow-color: rgba(0, 0, 0, 0.03);
   --nav-bg: rgba(255, 255, 255, 0.8);
-  --badge-bg: rgba(99, 102, 241, 0.08);
-  --badge-color: #4f46e5;
+  
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.01);
+  --card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+  
+  /* Pastel color scheme for light theme status badges */
+  --badge-blue-bg: rgba(0, 115, 234, 0.08);
+  --badge-blue-color: #0060d0;
+  --badge-green-bg: rgba(0, 200, 117, 0.1);
+  --badge-green-color: #00874e;
+  --badge-purple-bg: rgba(162, 93, 220, 0.1);
+  --badge-purple-color: #7934b8;
+  --badge-orange-bg: rgba(253, 171, 61, 0.12);
+  --badge-orange-color: #bc6200;
+  --badge-red-bg: rgba(226, 68, 92, 0.08);
+  --badge-red-color: #c91129;
+  --badge-pink-bg: rgba(255, 21, 139, 0.08);
+  --badge-pink-color: #cf0e67;
+  --badge-gray-bg: rgba(100, 116, 139, 0.08);
+  --badge-gray-color: #475569;
 }
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --primary-gradient: linear-gradient(135deg, #0073ea 0%, #a25ddc 100%);
+  --bs-body-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --bs-border-radius: 12px;
+  --bs-border-radius-lg: 16px;
+  --bs-border-radius-sm: 8px;
 }
 
+/* Base resets & typography */
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-family);
+  font-family: var(--bs-body-font-family);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color) !important;
   color: var(--text-primary) !important;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 #root {
@@ -61,23 +107,29 @@ body {
 /* Glassmorphism Navigation Bar */
 .custom-navbar {
   background: var(--nav-bg) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .custom-navbar .navbar-brand {
-  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
   font-size: 1.4rem;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
 }
 
 .custom-navbar .nav-link {
   color: var(--text-secondary) !important;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem !important;
   transition: color 0.25s ease;
 }
 
@@ -88,75 +140,174 @@ body {
 
 /* Hero Section */
 .hero-title {
-  font-size: 3.5rem;
+  font-size: 3.75rem;
   font-weight: 800;
   line-height: 1.15;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
 }
 
 .hero-subtitle {
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
   color: var(--accent-color);
+  text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
-/* Premium Project Cards & Micro-interactions */
-.project-card {
+/* Cards & Micro-interactions */
+.card, .project-card {
   background: var(--card-bg) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+  border-radius: var(--bs-border-radius-lg) !important;
+  box-shadow: var(--card-shadow) !important;
   overflow: hidden;
   height: 100%;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease !important;
 }
 
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(99, 102, 241, 0.4) !important;
-  box-shadow: 0 12px 30px var(--shadow-color);
+.card:hover, .project-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(0, 115, 234, 0.25) !important;
+  box-shadow: var(--card-shadow-hover) !important;
 }
 
-.project-card .card-title {
+[data-bs-theme="dark"] .card:hover, [data-bs-theme="dark"] .project-card:hover {
+  border-color: rgba(56, 189, 248, 0.25) !important;
+}
+
+.card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
   color: var(--text-primary);
-  font-weight: 600;
   font-size: 1.25rem;
-  transition: color 0.3s ease;
 }
 
-.project-card .card-text {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+/* Buttons & Mobile Touch targets */
+.btn {
+  font-weight: 600;
+  border-radius: var(--bs-border-radius) !important;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.95rem;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease !important;
 }
 
-/* Skills Badge */
-.skill-badge {
-  background: var(--badge-bg) !important;
-  color: var(--badge-color) !important;
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  padding: 8px 14px !important;
-  font-size: 0.9rem !important;
-  border-radius: 8px !important;
-  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+.btn:hover {
+  transform: translateY(-2px);
 }
 
-.skill-badge:hover {
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Enforce 44px min-height globally on buttons for mobile, or use .btn-lg structure */
+.btn-lg {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
   background: var(--primary-gradient) !important;
-  color: #fff !important;
-  border-color: transparent;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 115, 234, 0.25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(0, 115, 234, 0.35);
+}
+
+.btn-outline-primary {
+  border: 2px solid var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+}
+
+.btn-outline-primary:hover {
+  background: var(--accent-color) !important;
+  color: #ffffff !important;
+}
+
+/* Sleek Pastel Badges (inspired by monday.com columns) */
+.badge-pastel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  padding: 6px 12px !important;
+  border-radius: 50rem !important; /* rounded-pill */
+  border: none !important;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.badge-pastel:hover {
   transform: scale(1.05);
+  filter: brightness(0.95);
 }
 
-/* Hover Scale on Buttons */
-.btn-primary, .btn-outline-primary {
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease !important;
+[data-bs-theme="dark"] .badge-pastel:hover {
+  filter: brightness(1.1);
 }
 
-.btn-primary:hover, .btn-outline-primary:hover {
-  transform: scale(1.03);
+/* Individual badge color utilities */
+.badge-blue {
+  background-color: var(--badge-blue-bg) !important;
+  color: var(--badge-blue-color) !important;
+}
+.badge-green {
+  background-color: var(--badge-green-bg) !important;
+  color: var(--badge-green-color) !important;
+}
+.badge-purple {
+  background-color: var(--badge-purple-bg) !important;
+  color: var(--badge-purple-color) !important;
+}
+.badge-orange {
+  background-color: var(--badge-orange-bg) !important;
+  color: var(--badge-orange-color) !important;
+}
+.badge-red {
+  background-color: var(--badge-red-bg) !important;
+  color: var(--badge-red-color) !important;
+}
+.badge-pink {
+  background-color: var(--badge-pink-bg) !important;
+  color: var(--badge-pink-color) !important;
+}
+.badge-gray {
+  background-color: var(--badge-gray-bg) !important;
+  color: var(--badge-gray-color) !important;
+}
+
+/* Compatibility helper class for legacy skill-badge name */
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  padding: 6px 12px !important;
+  border-radius: 50rem !important; /* rounded-pill */
+  border: none !important;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  margin: 0;
 }
 
 /* Premium Table */
@@ -164,48 +315,73 @@ body {
   color: var(--text-primary) !important;
   background: var(--card-bg) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 12px;
+  border-radius: var(--bs-border-radius) !important;
   overflow: hidden;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  box-shadow: var(--card-shadow);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .custom-table th {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
   color: var(--text-primary) !important;
   border-bottom: 2px solid var(--border-color) !important;
-  padding: 16px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 18px 20px !important;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-bs-theme="dark"] .custom-table th {
+  background-color: rgba(255, 255, 255, 0.02) !important;
 }
 
 .custom-table td {
   background-color: transparent !important;
   color: var(--text-secondary) !important;
   border-bottom: 1px solid var(--border-color) !important;
-  padding: 16px !important;
+  padding: 16px 20px !important;
   vertical-align: middle;
+  font-size: 0.95rem;
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Custom Table Row Highlight on Hover */
+.custom-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Row highlight on hover */
 .custom-table tr:hover td {
   color: var(--text-primary) !important;
-  background-color: rgba(99, 102, 241, 0.05) !important;
+  background-color: rgba(0, 115, 234, 0.02) !important;
 }
 
-/* Custom Select Form */
-.custom-select, .form-control {
-  background-color: var(--card-bg) !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-primary) !important;
-  border-radius: 8px !important;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+[data-bs-theme="dark"] .custom-table tr:hover td {
+  background-color: rgba(56, 189, 248, 0.03) !important;
 }
 
-.custom-select:focus, .form-control:focus {
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+/* Custom Select Form & Control inputs */
+.custom-select, .form-control, .form-select {
+  background-color: var(--card-bg) !important;
+  border: 1.5px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--bs-border-radius) !important;
+  padding: 0.65rem 1rem !important;
+  font-weight: 500;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.custom-select:focus, .form-control:focus, .form-select:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 4px rgba(0, 115, 234, 0.15) !important;
   background-color: var(--card-bg) !important;
   color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] .custom-select:focus, [data-bs-theme="dark"] .form-control:focus, [data-bs-theme="dark"] .form-select:focus {
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15) !important;
 }
 
 /* Nav Tabs override */
@@ -213,19 +389,30 @@ body {
   color: var(--text-secondary) !important;
   border: none !important;
   border-bottom: 2px solid transparent !important;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
   transition: all 0.2s ease;
 }
 
 .custom-tabs .nav-link.active {
-  color: #a855f7 !important;
+  color: var(--accent-color) !important;
   background: transparent !important;
-  border-bottom: 2px solid #a855f7 !important;
+  border-bottom: 2px solid var(--accent-color) !important;
 }
 
 /* Footer styling */
 .custom-footer {
   border-top: 1px solid var(--border-color);
-  background: var(--bg-color);
+  background: var(--card-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Helpers */
+.transition-colors {
+  transition: color 0.2s ease;
+}
+
+/* Drop shadow utility class */
+.modern-shadow {
+  box-shadow: var(--card-shadow) !important;
 }

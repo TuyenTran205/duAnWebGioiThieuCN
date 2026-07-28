@@ -1,9 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table, Form, Button, Row, Col, Spinner, Alert } from 'react-bootstrap';
+import { Container, Table, Form, Button, Row, Col, Spinner, Alert, Badge } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { documentsData as mockDocuments, type Document } from '../data/documents';
+
+const getFormatColorClass = (format: string) => {
+  if (!format) return 'badge-gray';
+  const f = format.toLowerCase();
+  if (f.includes('pdf')) return 'badge-red';
+  if (f.includes('docx') || f.includes('doc')) return 'badge-blue';
+  if (f.includes('xlsx') || f.includes('xls') || f.includes('csv')) return 'badge-green';
+  if (f.includes('pptx') || f.includes('ppt')) return 'badge-orange';
+  if (f.includes('zip') || f.includes('rar')) return 'badge-purple';
+  return 'badge-gray';
+};
+
+const getCategoryColorClass = (category: string) => {
+  if (!category) return 'badge-gray';
+  switch (category) {
+    case 'Đại cương':
+      return 'badge-gray';
+    case 'Lập trình':
+      return 'badge-blue';
+    case 'Business Analyst':
+      return 'badge-orange';
+    case 'Machine Learning':
+      return 'badge-purple';
+    default:
+      return 'badge-green';
+  }
+};
 
 export const Resources: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -127,31 +154,39 @@ export const Resources: React.FC = () => {
                 </thead>
                 <tbody>
                   {filteredDocuments.length > 0 ? (
-                    filteredDocuments.map((doc) => (
-                      <tr key={doc.id}>
-                        <td className="fw-semibold">{doc.title}</td>
-                        <td>{doc.category}</td>
-                        <td>
-                          <span className="badge bg-secondary text-light px-2 py-1">
-                            {doc.format}
-                          </span>
-                        </td>
-                        <td>{doc.size}</td>
-                        <td>{new Date(doc.created_at).toISOString().split('T')[0]}</td>
-                        <td className="text-end">
-                          <Button
-                            href={doc.downloadUrl || (doc as any).downloadurl || (doc as any).download_url || '#'}
-                            variant="primary"
-                            size="sm"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ background: 'var(--primary-gradient)', border: 'none' }}
-                          >
-                            Download
-                          </Button>
-                        </td>
-                      </tr>
-                    ))
+                     filteredDocuments.map((doc) => {
+                      const formatClass = getFormatColorClass(doc.format);
+                      const categoryClass = getCategoryColorClass(doc.category);
+                      return (
+                        <tr key={doc.id}>
+                          <td className="fw-semibold text-primary">{doc.title}</td>
+                          <td>
+                            <Badge bg="transparent" className={`badge-pastel ${categoryClass} px-2.5 py-1.5`}>
+                              {doc.category}
+                            </Badge>
+                          </td>
+                          <td>
+                            <Badge bg="transparent" className={`badge-pastel ${formatClass} px-2.5 py-1.5`}>
+                              {doc.format}
+                            </Badge>
+                          </td>
+                          <td>{doc.size}</td>
+                          <td>{new Date(doc.created_at).toISOString().split('T')[0]}</td>
+                          <td className="text-end">
+                            <Button
+                              href={doc.downloadUrl || (doc as any).downloadurl || (doc as any).download_url || '#'}
+                              variant="primary"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="d-inline-flex align-items-center justify-content-center"
+                              style={{ minHeight: '44px', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}
+                            >
+                              Download
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })
                   ) : (
                     <tr>
                       <td colSpan={6} className="text-center py-4 text-secondary">
