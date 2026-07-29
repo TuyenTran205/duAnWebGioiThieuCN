@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Badge, Spinner, Alert } from 'react-bootstrap';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { projectsData as mockProjects, type Project } from '../data/projects';
@@ -75,9 +75,10 @@ export const Portfolio: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Portfolio | Trần Văn Tuyên</title>
-      </Helmet>
+      <SEO
+        title="Portfolio | Trần Văn Tuyên"
+        description="A showcase of selected academic, team, and personal software engineering projects built by Tran Van Tuyen."
+      />
       <Container className="py-5">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -86,9 +87,9 @@ export const Portfolio: React.FC = () => {
           className="text-center mb-5"
         >
           <span className="hero-subtitle text-uppercase">My Work</span>
-          <h2 className="display-5 fw-bold mt-2 mb-3" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 className="display-5 fw-bold mt-2 mb-3" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Featured Projects
-          </h2>
+          </h1>
           <p className="text-secondary mx-auto" style={{ maxWidth: '600px' }}>
             A showcase of selected academic, team, and personal software engineering projects.
           </p>

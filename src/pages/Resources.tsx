@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table, Form, Button, Row, Col, Spinner, Alert, Badge } from 'react-bootstrap';
-import { Helmet } from 'react-helmet-async';
+import { Container, Table, Form, Button, Spinner, Alert, Badge } from 'react-bootstrap';
+import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { documentsData as mockDocuments, type Document } from '../data/documents';
@@ -21,12 +21,12 @@ const getCategoryColorClass = (category: string) => {
   switch (category) {
     case 'Đại cương':
       return 'badge-gray';
-    case 'Lập trình':
+    case 'Cơ sở khối ngành(IT)':
       return 'badge-blue';
-    case 'Business Analyst':
-      return 'badge-orange';
-    case 'Machine Learning':
+    case 'Cơ sở ngành(IT)':
       return 'badge-purple';
+    case 'Tự chọn(IT)':
+      return 'badge-orange';
     default:
       return 'badge-green';
   }
@@ -35,10 +35,11 @@ const getCategoryColorClass = (category: string) => {
 export const Resources: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const categories: string[] = ['All', 'Đại cương', 'Lập trình', 'Business Analyst', 'Machine Learning'];
+  const categories: string[] = ['All', 'Đại cương', 'Cơ sở khối ngành(IT)', 'Cơ sở ngành(IT)', 'Tự chọn(IT)'];
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -68,15 +69,18 @@ export const Resources: React.FC = () => {
     fetchDocuments();
   }, []);
 
-  const filteredDocuments = selectedCategory === 'All'
-    ? documents
-    : documents.filter(doc => doc.category === selectedCategory);
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || doc.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <>
-      <Helmet>
-        <title>Kho Tài Liệu TLU | Trần Văn Tuyên</title>
-      </Helmet>
+      <SEO
+        title="Kho Tài Liệu TLU | Trần Văn Tuyên"
+        description="Sharing textbooks, project templates, research, and revision sheets for courses at Thuyloi University (TLU) compiled by Tran Van Tuyen."
+      />
       <Container className="py-5">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -85,9 +89,9 @@ export const Resources: React.FC = () => {
           className="text-center mb-5"
         >
           <span className="hero-subtitle text-uppercase">Academic Share</span>
-          <h2 className="display-5 fw-bold mt-2 mb-3" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 className="display-5 fw-bold mt-2 mb-3" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Resource Hub
-          </h2>
+          </h1>
           <p className="text-secondary mx-auto" style={{ maxWidth: '600px' }}>
             Sharing textbooks, project templates, research, and revision sheets for courses at TLU.
           </p>
@@ -99,24 +103,34 @@ export const Resources: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
         >
-          <Row className="justify-content-center mb-4">
-            <Col md={6} lg={4}>
-              <Form.Group controlId="categoryFilter">
-                <Form.Label className="text-secondary small mb-2">Filter by Category</Form.Label>
-                <Form.Select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="custom-select"
-                >
-                  {categories.map((cat, idx) => (
-                    <option key={idx} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-            </Col>
-          </Row>
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+            {/* Left side (Search) */}
+            <div style={{ flex: 1, width: '100%', maxWidth: '400px' }}>
+              <Form.Control
+                type="text"
+                placeholder="Tìm kiếm tài liệu..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="custom-select"
+              />
+            </div>
+
+            {/* Right side (Filter) */}
+            <div style={{ width: '100%', maxWidth: '280px' }}>
+              <Form.Select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="custom-select"
+                aria-label="Filter by Category"
+              >
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </Form.Select>
+            </div>
+          </div>
         </motion.div>
 
         {isLoading ? (

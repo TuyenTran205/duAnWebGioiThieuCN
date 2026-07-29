@@ -1,4 +1,4 @@
-export type DocumentCategory = 'Đại cương' | 'Lập trình' | 'Business Analyst' | 'Machine Learning';
+export type DocumentCategory = 'Đại cương' | 'Cơ sở khối ngành(IT)' | 'Cơ sở ngành(IT)' | 'Tự chọn(IT)';
 
 export interface Document {
   id: string;
@@ -14,7 +14,7 @@ export const documentsData: Document[] = [
   {
     id: 'doc-1',
     title: 'Tài liệu OOP Java',
-    category: 'Lập trình',
+    category: 'Cơ sở ngành(IT)',
     format: 'PDF',
     size: '4.5 MB',
     downloadUrl: '#',
@@ -23,7 +23,7 @@ export const documentsData: Document[] = [
   {
     id: 'doc-2',
     title: 'Hướng dẫn C++ cơ bản',
-    category: 'Lập trình',
+    category: 'Cơ sở khối ngành(IT)',
     format: 'PDF',
     size: '2.8 MB',
     downloadUrl: '#',
@@ -32,7 +32,7 @@ export const documentsData: Document[] = [
   {
     id: 'doc-3',
     title: 'Đồ án PHP',
-    category: 'Lập trình',
+    category: 'Cơ sở ngành(IT)',
     format: 'ZIP',
     size: '12.4 MB',
     downloadUrl: '#',
@@ -41,7 +41,7 @@ export const documentsData: Document[] = [
   {
     id: 'doc-4',
     title: 'Xác suất thống kê cho BA',
-    category: 'Business Analyst',
+    category: 'Cơ sở khối ngành(IT)',
     format: 'PDF',
     size: '3.2 MB',
     downloadUrl: '#',
@@ -50,7 +50,7 @@ export const documentsData: Document[] = [
   {
     id: 'doc-5',
     title: 'Nhập môn Machine Learning',
-    category: 'Machine Learning',
+    category: 'Tự chọn(IT)',
     format: 'PDF',
     size: '5.1 MB',
     downloadUrl: '#',

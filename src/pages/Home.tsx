@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Badge, Spinner, Alert } from 'react-bootstrap';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { userProfile as mockProfile, type Profile } from '../data/profile';
@@ -41,9 +41,10 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Tran Van Tuyen | Portfolio</title>
-      </Helmet>
+      <SEO
+        title="Tran Van Tuyen | Software Developer & Business Analyst"
+        description={profile?.bio || "Welcome to the professional portfolio of Tran Van Tuyen. Software developer, business analyst, and tech enthusiast."}
+      />
       <Container className="py-5">
         {isLoading ? (
           <div className="text-center py-5">
@@ -62,7 +63,7 @@ export const Home: React.FC = () => {
             {profile && (
               <>
                 {/* Hero Section */}
-                <motion.div
+                <motion.section
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
@@ -99,12 +100,12 @@ export const Home: React.FC = () => {
                       </p>
                     </Col>
                   </Row>
-                </motion.div>
+                </motion.section>
 
                 <hr className="my-2 border-secondary" style={{ opacity: 0.08 }} />
 
                 {/* Skills Section */}
-                <motion.div
+                <motion.section
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
@@ -129,12 +130,12 @@ export const Home: React.FC = () => {
                       </div>
                     </Col>
                   </Row>
-                </motion.div>
+                </motion.section>
 
                 <hr className="my-2 border-secondary" style={{ opacity: 0.08 }} />
 
                 {/* Contact Section */}
-                <motion.div
+                <motion.section
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
@@ -158,7 +159,7 @@ export const Home: React.FC = () => {
                       </div>
                     </Col>
                   </Row>
-                </motion.div>
+                </motion.section>
               </>
             )}
           </>

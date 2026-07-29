@@ -31,7 +31,7 @@ export const Admin: React.FC = () => {
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
 
-  const categories: DocumentCategory[] = ['Đại cương', 'Lập trình', 'Business Analyst', 'Machine Learning'];
+  const categories: DocumentCategory[] = ['Đại cương', 'Cơ sở khối ngành(IT)', 'Cơ sở ngành(IT)', 'Tự chọn(IT)'];
   const projectTypes = ['Web Development', 'Mobile App', 'AI Application', 'Desktop App', 'Other'];
 
   // Add Project state
@@ -303,23 +303,45 @@ export const Admin: React.FC = () => {
     }
   };
 
-  const handleDeleteDoc = async (id: string | number, fileUrl: string | undefined) => {
+  const handleDeleteDoc = async (id: string | number, initialFileUrl?: string) => {
     if (!window.confirm('Are you sure you want to delete this document?')) return;
     setDocsError(null);
     setDocsSuccess(null);
     try {
+      // Fetch latest document record to ensure we have the file URL
+      const { data: doc, error: fetchError } = await supabase
+        .from('documents')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
+
+      if (fetchError) throw fetchError;
+
+      const fileUrl = doc ? (doc.downloadUrl || doc.downloadurl || doc.download_url) : initialFileUrl;
+
       if (fileUrl) {
-        const urlParts = fileUrl.split('/document_files/');
-        if (urlParts.length === 2) {
-          const filePath = urlParts[1];
-          await supabase.storage.from('document_files').remove([filePath]);
+        let filePath = '';
+        if (fileUrl.includes('/document_files/')) {
+          const urlParts = fileUrl.split('/document_files/');
+          filePath = urlParts.length > 1 ? urlParts[1] : '';
+        } else {
+          const urlParts = fileUrl.split('/');
+          filePath = urlParts[urlParts.length - 1];
+        }
+
+        if (filePath) {
+          const { error: storageError } = await supabase.storage.from('document_files').remove([filePath]);
+          if (storageError) {
+            console.error('Failed to remove file from Supabase Storage:', storageError);
+            // We continue database deletion even if the file is already missing/deleted from storage
+          }
         }
       }
 
-      const { error } = await supabase.from('documents').delete().eq('id', id);
-      if (error) throw error;
+      const { error: dbError } = await supabase.from('documents').delete().eq('id', id);
+      if (dbError) throw dbError;
 
-      setDocsSuccess('Document deleted successfully.');
+      setDocsSuccess('Document and its associated file deleted successfully.');
       fetchDocuments(); 
     } catch (err: any) {
       setDocsError(err.message || 'Failed to delete document.');
