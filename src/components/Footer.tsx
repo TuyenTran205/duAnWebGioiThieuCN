@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           </Col>
           <Col md="auto" className="text-center text-md-end">
             <a
-              href="https://github.com/dashboard"
+              href="https://github.com/TuyenTran205"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted mx-2 transition-colors hover:text-white"
