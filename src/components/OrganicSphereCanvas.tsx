@@ -161,21 +161,28 @@ export const OrganicSphereCanvas: React.FC = () => {
 
     const scene = new THREE.Scene();
 
+    const getCameraZ = (w: number) => {
+      if (w < 480) return 5.3;
+      if (w < 768) return 4.85;
+      return 4.35;
+    };
+
     const camera = new THREE.PerspectiveCamera(
       44,
       container.clientWidth / container.clientHeight,
       0.1,
       100
     );
-    camera.position.set(0, 0, 4.35);
+    camera.position.set(0, 0, getCameraZ(container.clientWidth));
 
+    const isMobileDevice = container.clientWidth < 768;
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance'
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileDevice ? 1.5 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
@@ -315,8 +322,10 @@ export const OrganicSphereCanvas: React.FC = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
       camera.aspect = width / height;
+      camera.position.z = getCameraZ(width);
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, width < 768 ? 1.5 : 2));
     };
 
     window.addEventListener('resize', handleResize);

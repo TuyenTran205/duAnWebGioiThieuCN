@@ -10,7 +10,7 @@ interface PillarVisualProps {
 
 const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) => {
   return (
-    <div className="relative w-full h-52 sm:h-64 rounded-2xl overflow-hidden border theme-border bg-[#f2f4fa] flex items-center justify-center">
+    <div className="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden border theme-border bg-[#f2f4fa] flex items-center justify-center">
       {/* Background Architectural Grid Pattern */}
       <div
         className="absolute inset-0 opacity-25"
@@ -25,7 +25,7 @@ const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) =
       {index === 0 && (
         <svg
           viewBox="0 0 280 160"
-          className={`w-64 h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+          className={`w-56 sm:w-64 h-36 sm:h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
             isHovered ? 'scale-115 rotate-6' : 'scale-100'
           }`}
           strokeWidth="1.3"
@@ -43,7 +43,7 @@ const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) =
       {index === 1 && (
         <svg
           viewBox="0 0 280 160"
-          className={`w-64 h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+          className={`w-56 sm:w-64 h-36 sm:h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
             isHovered ? 'scale-115' : 'scale-100'
           }`}
           strokeWidth="1.4"
@@ -61,7 +61,7 @@ const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) =
       {index === 2 && (
         <svg
           viewBox="0 0 280 160"
-          className={`w-64 h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+          className={`w-56 sm:w-64 h-36 sm:h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
             isHovered ? 'scale-115 -rotate-3' : 'scale-100'
           }`}
           strokeWidth="1.3"
@@ -80,7 +80,7 @@ const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) =
       {index === 3 && (
         <svg
           viewBox="0 0 280 160"
-          className={`w-64 h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+          className={`w-56 sm:w-64 h-36 sm:h-40 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
             isHovered ? 'scale-115 rotate-2' : 'scale-100'
           }`}
           strokeWidth="1.3"
@@ -96,10 +96,10 @@ const PillarVisualCanvas: React.FC<PillarVisualProps> = ({ index, isHovered }) =
         </svg>
       )}
 
-      <div className="absolute bottom-3 left-3 font-mono text-[10px] theme-text-muted px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-sm border theme-border font-medium">
+      <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 font-mono text-[9px] sm:text-[10px] theme-text-muted px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-sm border theme-border font-medium">
         VIEWPORT // 0{index + 1}
       </div>
-      <div className="absolute top-3 right-3 font-mono text-[10px] text-[#1a2ffb] font-bold flex items-center gap-1.5 bg-white/90 px-2.5 py-1 rounded-full border theme-border">
+      <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 font-mono text-[9px] sm:text-[10px] text-[#1a2ffb] font-bold flex items-center gap-1.5 bg-white/90 px-2.5 py-1 rounded-full border theme-border">
         <span className="w-1.5 h-1.5 rounded-full bg-[#1a2ffb] animate-ping" />
         <span>INTERACTIVE STACK</span>
       </div>
@@ -130,9 +130,9 @@ export const CapabilitiesSection: React.FC = () => {
   ];
 
   return (
-    <section id="capabilities" className="py-24 px-6 max-w-7xl mx-auto border-t theme-border overflow-hidden">
+    <section id="capabilities" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t theme-border overflow-hidden">
       {/* Section Header */}
-      <div className="space-y-3 mb-16">
+      <div className="space-y-3 mb-10 sm:mb-16">
         <div className="font-mono text-xs text-[#5e6473] uppercase tracking-widest flex items-center gap-2">
           <span className="text-[#1a2ffb] font-bold">[02] TECHNICAL ARSENAL</span>
           <span>/</span>
@@ -141,17 +141,13 @@ export const CapabilitiesSection: React.FC = () => {
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0a0b0e]">
           Capabilities & Core Engineering.
         </h2>
-        <p className="text-base text-[#2f3441] max-w-2xl font-normal leading-relaxed text-pretty">
+        <p className="text-sm sm:text-base text-[#2f3441] max-w-2xl font-normal leading-relaxed text-pretty">
           Nền tảng kỹ thuật vững chắc từ ngành Công nghệ Thông tin Đại học Thủy lợi kết hợp cùng năng lực tự nghiên cứu và làm chủ các công nghệ đồ họa tương tác 3D WebGL hiện đại.
         </p>
       </div>
 
-      {/* 
-        NEW DISTINCT 3D EFFECT: 3D Spatial Unfold from Depth & Blur Dissolve (KHÔNG LẶP LẠI TRÁI/PHẢI CỦA PROJECTS)
-        Hiệu ứng mở từ chiều sâu (depth tilt-up, scale, blur dissolve) với góc lật 3D theo trục X
-        once: false -> Luôn tái xuất hiện mỗi khi cuộn tới và lui
-      */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ perspective: 1600 }}>
+      {/* 3D Spatial Unfold Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8" style={{ perspective: 1600 }}>
         {userProfile.skills.map((pillar, idx) => {
           const isHovered = hoveredIndex === idx;
           const meta = pillarDetails[idx];
@@ -161,10 +157,10 @@ export const CapabilitiesSection: React.FC = () => {
               key={pillar.category}
               initial={{
                 opacity: 0,
-                y: 75,
-                rotateX: 24,
-                scale: 0.90,
-                filter: 'blur(6px)'
+                y: 45,
+                rotateX: 16,
+                scale: 0.94,
+                filter: 'blur(4px)'
               }}
               whileInView={{
                 opacity: 1,
@@ -173,16 +169,16 @@ export const CapabilitiesSection: React.FC = () => {
                 scale: 1,
                 filter: 'blur(0px)'
               }}
-              viewport={{ once: false, amount: 0.18 }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{
-                duration: 0.82,
+                duration: 0.75,
                 ease: [0.16, 1, 0.3, 1],
-                delay: idx * 0.13
+                delay: idx * 0.1
               }}
               whileHover={{
-                y: -10,
-                scale: 1.018,
-                boxShadow: '0 28px 56px -14px rgba(26, 47, 251, 0.18), 0 14px 28px -8px rgba(10, 11, 14, 0.08)',
+                y: -8,
+                scale: 1.015,
+                boxShadow: '0 24px 48px -12px rgba(26, 47, 251, 0.16), 0 12px 24px -8px rgba(10, 11, 14, 0.08)',
                 transition: { duration: 0.3, ease: 'easeOut' }
               }}
               style={{
@@ -195,20 +191,20 @@ export const CapabilitiesSection: React.FC = () => {
                 soundEngine.playHover();
               }}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="p-7 sm:p-9 rounded-3xl bg-white border border-[rgba(10,11,14,0.1)] hover:border-[#1a2ffb] transition-colors duration-300 space-y-6 relative group shadow-sm flex flex-col justify-between cursor-default"
+              className="p-5 sm:p-9 rounded-3xl bg-white border border-[rgba(10,11,14,0.1)] hover:border-[#1a2ffb] transition-colors duration-300 space-y-5 sm:space-y-6 relative group shadow-sm flex flex-col justify-between cursor-default"
             >
               {/* Card Top: Lusion Dot-Separated Micro Categories & Header */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between font-mono text-[11px]">
-                  <span className="text-[#1a2ffb] font-bold tracking-widest uppercase">
+              <div className="space-y-2.5 sm:space-y-3">
+                <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px]">
+                  <span className="text-[#1a2ffb] font-bold tracking-wider sm:tracking-widest uppercase truncate mr-2">
                     {meta.dots}
                   </span>
-                  <span className="text-[#5e6473] font-semibold bg-[#f2f4fa] px-2.5 py-0.5 rounded-full border theme-border">
+                  <span className="text-[#5e6473] font-semibold bg-[#f2f4fa] px-2 sm:px-2.5 py-0.5 rounded-full border theme-border shrink-0">
                     0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0a0b0e] group-hover:text-[#1a2ffb] transition-colors tracking-tight">
+                <h3 className="text-xl sm:text-3xl font-extrabold text-[#0a0b0e] group-hover:text-[#1a2ffb] transition-colors tracking-tight">
                   {pillar.category}
                 </h3>
               </div>
@@ -217,16 +213,16 @@ export const CapabilitiesSection: React.FC = () => {
               <PillarVisualCanvas index={idx} isHovered={isHovered} />
 
               {/* Card Bottom: Description & Skill Pills */}
-              <div className="space-y-5 pt-1">
+              <div className="space-y-4 pt-1">
                 <p className="text-sm text-[#2f3441] leading-relaxed text-pretty font-normal">
                   {meta.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-[rgba(10,11,14,0.06)]">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2 border-t border-[rgba(10,11,14,0.06)]">
                   {pillar.items.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 rounded-lg bg-[#f2f4fa] border border-[rgba(10,11,14,0.08)] font-mono text-xs text-[#2f3441] group-hover:border-[#1a2ffb]/40 hover:bg-white hover:text-[#0a0b0e] transition-colors font-medium shadow-2xs"
+                      className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[#f2f4fa] border border-[rgba(10,11,14,0.08)] font-mono text-xs text-[#2f3441] group-hover:border-[#1a2ffb]/40 hover:bg-white hover:text-[#0a0b0e] transition-colors font-medium shadow-2xs"
                     >
                       {skill}
                     </span>

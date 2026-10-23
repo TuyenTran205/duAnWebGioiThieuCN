@@ -19,7 +19,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
   onToggleExpand
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: false, amount: 0.22 });
+  const isInView = useInView(cardRef, { once: false, amount: 0.18 });
   const [rotateX, setRotateX] = useState<number>(0);
   const [rotateY, setRotateY] = useState<number>(0);
   const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
@@ -29,12 +29,14 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
   const isFromLeft = index % 2 === 0;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Disable 3D tilt tracking on non-hover touch devices to ensure smooth touch scrolling
+    if (window.matchMedia && !window.matchMedia('(hover: hover)').matches) return;
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Calculate normalized rotation (-12deg to +12deg)
+    // Calculate normalized rotation (-8deg to +8deg)
     const normX = (x / rect.width - 0.5) * 2;
     const normY = (y / rect.height - 0.5) * 2;
 
@@ -56,7 +58,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
 
   const renderSchematic = () => {
     return (
-      <div className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden border theme-border bg-[#f2f4fa] flex items-center justify-center">
+      <div className="relative w-full h-40 sm:h-52 rounded-2xl overflow-hidden border theme-border bg-[#f2f4fa] flex items-center justify-center">
         {/* Architectural Grid pattern */}
         <div
           className="absolute inset-0 opacity-30"
@@ -71,7 +73,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
         {project.id === '1' && (
           <svg
             viewBox="0 0 240 140"
-            className={`w-48 h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+            className={`w-44 sm:w-48 h-28 sm:h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
               isHovered ? 'scale-115 rotate-6' : 'scale-100'
             }`}
             strokeWidth="1.3"
@@ -86,7 +88,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
         {project.id === '2' && (
           <svg
             viewBox="0 0 240 140"
-            className={`w-48 h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+            className={`w-44 sm:w-48 h-28 sm:h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
               isHovered ? 'scale-115' : 'scale-100'
             }`}
             strokeWidth="1.5"
@@ -99,7 +101,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
         {project.id === '3' && (
           <svg
             viewBox="0 0 240 140"
-            className={`w-48 h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+            className={`w-44 sm:w-48 h-28 sm:h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
               isHovered ? 'scale-115 -rotate-3' : 'scale-100'
             }`}
             strokeWidth="1.4"
@@ -114,7 +116,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
         {project.id === '4' && (
           <svg
             viewBox="0 0 240 140"
-            className={`w-48 h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
+            className={`w-44 sm:w-48 h-28 sm:h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
               isHovered ? 'scale-115 rotate-1' : 'scale-100'
             }`}
             strokeWidth="1.3"
@@ -138,12 +140,12 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
           </svg>
         )}
 
-        <div className="absolute bottom-3 left-3 font-mono text-[10px] theme-text-muted px-2 py-0.5 rounded bg-white/90 backdrop-blur-sm border theme-border font-medium">
+        <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 font-mono text-[9px] sm:text-[10px] theme-text-muted px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-sm border theme-border font-medium">
           SCHEMATIC // 0{project.id}
         </div>
-        <div className="absolute top-3 right-3 font-mono text-[10px] text-[#1a2ffb] font-bold flex items-center gap-1.5">
+        <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 font-mono text-[9px] sm:text-[10px] text-[#1a2ffb] font-bold flex items-center gap-1.5 bg-white/90 px-2 py-0.5 rounded-full border theme-border">
           <span className="w-1.5 h-1.5 rounded-full bg-[#1a2ffb] animate-ping" />
-          <span>3D LIVE ARCHITECTURE</span>
+          <span>3D ARCHITECTURE</span>
         </div>
       </div>
     );
@@ -153,36 +155,34 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
     <div
       ref={cardRef}
       style={{ perspective: 1400 }}
-      className="w-full my-6"
+      className="w-full my-4 sm:my-6"
     >
       <motion.div
         initial={{
           opacity: 0,
-          x: isFromLeft ? -100 : 100,
-          y: 60,
-          rotateY: isFromLeft ? -15 : 15,
-          scale: 0.94
+          x: isFromLeft ? -50 : 50,
+          y: 40,
+          scale: 0.96
         }}
         animate={
           isInView
             ? {
                 opacity: 1,
                 x: 0,
-                y: isHovered ? -8 : 0,
+                y: isHovered ? -6 : 0,
                 rotateY: rotateY,
                 rotateX: rotateX,
-                scale: isHovered ? 1.015 : 1.0
+                scale: isHovered ? 1.012 : 1.0
               }
             : {
                 opacity: 0,
-                x: isFromLeft ? -100 : 100,
-                y: 60,
-                rotateY: isFromLeft ? -15 : 15,
-                scale: 0.94
+                x: isFromLeft ? -50 : 50,
+                y: 40,
+                scale: 0.96
               }
         }
         transition={{
-          duration: 0.85,
+          duration: 0.75,
           ease: [0.16, 1, 0.3, 1]
         }}
         onMouseMove={handleMouseMove}
@@ -216,7 +216,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
             soundEngine.playClick();
             onToggleExpand();
           }}
-          className="p-6 sm:p-9 cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+          className="p-5 sm:p-9 cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-center"
         >
           {/* Left Visual Schematic Preview (4 cols on desktop) */}
           <div className="lg:col-span-4" style={{ transform: 'translateZ(25px)' }}>
@@ -225,13 +225,13 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
 
           {/* Right Project Info (8 cols on desktop) */}
           <div className="lg:col-span-8 flex flex-col justify-between gap-4" style={{ transform: 'translateZ(35px)' }}>
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-3">
+            <div className="space-y-2.5 sm:space-y-3">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <span className="font-mono text-xs text-[#1a2ffb] font-bold tracking-widest px-2.5 py-1 rounded-md bg-[#1a2ffb]/10">
                   {project.code}
                 </span>
                 <span className="theme-text-muted font-mono text-xs">·</span>
-                <span className="font-mono text-xs theme-text-secondary uppercase tracking-wider font-semibold">
+                <span className="font-mono text-[11px] sm:text-xs theme-text-secondary uppercase tracking-wider font-semibold">
                   {project.category}
                 </span>
                 <span className="theme-text-muted font-mono text-xs">·</span>
@@ -240,7 +240,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0a0b0e] group-hover:text-[#1a2ffb] transition-colors tracking-tight">
+              <h3 className="text-xl sm:text-3xl font-extrabold text-[#0a0b0e] group-hover:text-[#1a2ffb] transition-colors tracking-tight">
                 {project.title}
               </h3>
 
@@ -250,21 +250,23 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
             </div>
 
             {/* Tags & Expand Indicator */}
-            <div className="pt-3 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(10,11,14,0.06)]">
-              <div className="flex flex-wrap gap-2 font-mono text-[11px]">
+            <div className="pt-3 flex flex-wrap items-center justify-between gap-3 sm:gap-4 border-t border-[rgba(10,11,14,0.06)]">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 font-mono text-[11px]">
                 {project.tags.map((t) => (
                   <span
                     key={t}
-                    className="px-3 py-1 rounded-full bg-[#f2f4fa] border border-[rgba(10,11,14,0.08)] text-[#2f3441] font-medium"
+                    className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#f2f4fa] border border-[rgba(10,11,14,0.08)] text-[#2f3441] font-medium"
                   >
                     #{t}
                   </span>
                 ))}
               </div>
 
-              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#0a0b0e] font-semibold">
-                <span>{isExpanded ? 'Thu gọn chi tiết' : 'Khám phá kiến trúc 3D'}</span>
-                <span className="w-8 h-8 rounded-full border border-[rgba(10,11,14,0.18)] flex items-center justify-center bg-white text-[#1a2ffb] font-bold shadow-sm group-hover:border-[#1a2ffb] transition-all">
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#0a0b0e] font-semibold w-full sm:w-auto justify-end pt-1 sm:pt-0">
+                <span className="text-[11px] sm:text-xs">
+                  {isExpanded ? 'Thu gọn chi tiết' : 'Khám phá chi tiết 3D'}
+                </span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[rgba(10,11,14,0.18)] flex items-center justify-center bg-white text-[#1a2ffb] font-bold shadow-sm group-hover:border-[#1a2ffb] transition-all">
                   {isExpanded ? '−' : '+'}
                 </span>
               </div>
@@ -279,9 +281,9 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            className="px-6 sm:px-9 pb-9 pt-6 border-t border-[rgba(10,11,14,0.08)] bg-[#f7f9fc] space-y-6"
+            className="px-5 sm:px-9 pb-7 sm:pb-9 pt-5 sm:pt-6 border-t border-[rgba(10,11,14,0.08)] bg-[#f7f9fc] space-y-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               <div className="md:col-span-2 space-y-4">
                 <h4 className="font-mono text-xs uppercase tracking-wider text-[#5e6473] font-bold">
                   Kiến trúc kỹ thuật & Giải pháp
@@ -297,7 +299,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#0a0b0e] font-mono">
                     {project.highlights.map((h, i) => (
                       <li key={i} className="flex items-center gap-2">
-                        <span className="text-[#1a2ffb] font-bold">▹</span>
+                        <span className="text-[#1a2ffb] font-bold shrink-0">▹</span>
                         <span className="font-medium">{h}</span>
                       </li>
                     ))}
@@ -305,7 +307,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-5 border-t md:border-t-0 md:border-l border-[rgba(10,11,14,0.1)] md:pl-8">
+              <div className="space-y-5 border-t md:border-t-0 md:border-l border-[rgba(10,11,14,0.1)] pt-5 md:pt-0 md:pl-8">
                 <h4 className="font-mono text-xs uppercase tracking-wider text-[#5e6473] font-bold">
                   Công nghệ cốt lõi
                 </h4>
@@ -329,7 +331,7 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
                       href={getSafeUrl(project.github)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 font-mono text-xs bg-[#0a0b0e] text-white hover:bg-[#1a2ffb] px-5 py-3 rounded-xl transition-colors w-full justify-center font-semibold shadow-md"
+                      className="inline-flex items-center gap-2 font-mono text-xs bg-[#0a0b0e] text-white hover:bg-[#1a2ffb] active:scale-98 px-5 py-3 rounded-xl transition-all w-full justify-center font-semibold shadow-md"
                     >
                       <span>Xem mã nguồn GitHub</span>
                       <span>↗</span>
@@ -360,9 +362,9 @@ export const ProjectsSection: React.FC = () => {
   });
 
   return (
-    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto border-t theme-border overflow-hidden">
+    <section id="projects" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t theme-border overflow-hidden">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-16">
         <div className="space-y-3">
           <div className="font-mono text-xs text-[#5e6473] uppercase tracking-widest flex items-center gap-2">
             <span className="text-[#1a2ffb] font-bold">[01] 3D INTERACTIVE SHOWCASE</span>
@@ -372,14 +374,14 @@ export const ProjectsSection: React.FC = () => {
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0a0b0e]">
             Featured Projects & Case Studies.
           </h2>
-          <p className="text-sm font-mono text-[#5e6473] flex items-center gap-2">
+          <p className="text-xs sm:text-sm font-mono text-[#5e6473] flex items-center gap-2">
             <span>✦</span>
-            <span>CUỘN CHUỘT ĐỂ XEM HIỆU ỨNG 3D BAY VÀO TỪ HAI PHÍA</span>
+            <span>CUỘN ĐỂ KHÁM PHÁ CHI TIẾT 3D TIÊU BIỂU</span>
           </p>
         </div>
 
-        {/* Filter Tags */}
-        <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+        {/* Filter Tags - Mobile Horizontal Scrollbar with Touch Friendly Targets */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap font-mono text-xs">
           {tags.map((tag) => (
             <button
               key={tag}
@@ -389,7 +391,7 @@ export const ProjectsSection: React.FC = () => {
                 setSelectedTag(tag);
               }}
               onMouseEnter={() => soundEngine.playHover()}
-              className={`px-4 py-2 rounded-full transition-all cursor-pointer font-medium ${
+              className={`px-3.5 sm:px-4 py-2 rounded-full transition-all cursor-pointer font-medium whitespace-nowrap shrink-0 active:scale-95 ${
                 selectedTag === tag
                   ? 'bg-[#0a0b0e] text-white shadow-md'
                   : 'bg-white text-[#2f3441] hover:text-[#0a0b0e] border border-[rgba(10,11,14,0.1)] shadow-xs'

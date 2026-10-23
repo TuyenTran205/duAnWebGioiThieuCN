@@ -29,6 +29,7 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  overflow-x: hidden;
 }
 
 body {
@@ -41,11 +42,16 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   letter-spacing: -0.025em;
+}
+
+button, a {
+  touch-action: manipulation;
 }
 
 :focus-visible {
@@ -103,4 +109,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .sound-bar-active {
   animation: soundWave 0.9s ease-in-out infinite;
+}
+
+/* Hide scrollbar for clean horizontal mobile filters */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

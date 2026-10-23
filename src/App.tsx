@@ -9,11 +9,11 @@ import { FooterSection } from './components/FooterSection';
 export const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
 
-  // Track active section on scroll
+  // Track active section on scroll with dynamic mobile offset
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'projects', 'capabilities', 'about', 'contact'];
-      const scrollPos = window.scrollY + 260;
+      const scrollPos = window.scrollY + (window.innerWidth < 768 ? 140 : 260);
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen theme-bg theme-text font-sans selection:bg-[var(--accent-primary)] selection:text-white">
+    <div className="min-h-screen theme-bg theme-text font-sans selection:bg-[var(--accent-primary)] selection:text-white overflow-x-hidden">
       {/* Fixed Minimalist Lusion-Style Header */}
       <Header
         onNavigate={scrollToSection}
@@ -48,7 +48,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Interactive Flow */}
-      <main>
+      <main className="overflow-x-hidden">
         {/* Fullscreen 3D Shader Hero (Permanent Hyperwave Wireframe 1X) */}
         <HeroSection
           onExploreWork={() => scrollToSection('projects')}
@@ -61,7 +61,7 @@ export const App: React.FC = () => {
         {/* Core Capabilities & Engineering Matrix */}
         <CapabilitiesSection />
 
-        {/* Biography & Design Philosophy (Không AI hóa) */}
+        {/* Biography & Design Philosophy */}
         <AboutSection />
       </main>
 
