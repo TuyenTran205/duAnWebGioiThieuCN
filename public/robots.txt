@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /admin/
 
-Sitemap: https://tuyentran.dev/sitemap.xml
+Sitemap: https://tranvantuyen.dev/sitemap.xml

@@ -1,0 +1,44 @@
+name: CI & Security Verification Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lint, Test & Build Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Clean Dependencies
+        run: npm ci
+
+      - name: Lint Codebase (Oxlint)
+        run: npm run lint
+
+      - name: Run Automated Security & Unit Tests (Vitest)
+        run: npm run test
+
+      - name: Verify Production Build
+        run: npm run build
+
+      - name: Bundle Size Safeguard
+        run: |
+          MAX_SIZE=2000000 # 2MB limit (loại trừ file 3D cũ)
+          TOTAL_SIZE=$(du -sb dist/ | cut -f1)
+          echo "Total Dist Size: $TOTAL_SIZE bytes"
+          if [ $TOTAL_SIZE -gt $MAX_SIZE ]; then
+            echo "Bundle size vượt quá giới hạn cho phép!"
+            exit 1
+          fi

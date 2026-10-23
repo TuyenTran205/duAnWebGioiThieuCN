@@ -1,23 +1,74 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import Portfolio from './pages/Portfolio';
-import Resources from './pages/Resources';
-import Admin from './pages/Admin';
+import React, { useState, useEffect } from 'react';
+import { Header } from './components/Header';
+import { HeroSection } from './components/HeroSection';
+import { ProjectsSection } from './components/ProjectsSection';
+import { CapabilitiesSection } from './components/CapabilitiesSection';
+import { AboutSection } from './components/AboutSection';
+import { FooterSection } from './components/FooterSection';
 
-function App() {
+export const App: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string>('hero');
+
+  // Track active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'projects', 'capabilities', 'about', 'contact'];
+      const scrollPos = window.scrollY + 260;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="portfolio" element={<Portfolio />} />
-        <Route path="resources" element={<Resources />} />
-        <Route path="admin" element={<Admin />} />
-      </Route>
-    </Routes>
+    <div className="min-h-screen theme-bg theme-text font-sans selection:bg-[var(--accent-primary)] selection:text-white">
+      {/* Fixed Minimalist Lusion-Style Header */}
+      <Header
+        onNavigate={scrollToSection}
+        activeSection={activeSection}
+      />
+
+      {/* Main Interactive Flow */}
+      <main>
+        {/* Fullscreen 3D Shader Hero (Permanent Hyperwave Wireframe 1X) */}
+        <HeroSection
+          onExploreWork={() => scrollToSection('projects')}
+          onContact={() => scrollToSection('contact')}
+        />
+
+        {/* Selected Works & Case Studies */}
+        <ProjectsSection />
+
+        {/* Core Capabilities & Engineering Matrix */}
+        <CapabilitiesSection />
+
+        {/* Biography & Design Philosophy (Không AI hóa) */}
+        <AboutSection />
+      </main>
+
+      {/* Footer & Direct Contact */}
+      <FooterSection />
+    </div>
   );
-}
+};
 
 export default App;
-
-
