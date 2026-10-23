@@ -24,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onConta
         <div className="max-w-3xl space-y-5 sm:space-y-6 pointer-events-auto">
           {/* Badge & Metadata Tag */}
           <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-3 sm:px-3.5 py-1.5 rounded-full border theme-border theme-surface backdrop-blur-md max-w-full shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent-primary)] shrink-0 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-(--accent-primary) shrink-0 animate-ping" />
             <span className="font-mono text-[10px] sm:text-[11px] theme-text tracking-wider uppercase font-semibold">
               {userProfile.title}
             </span>

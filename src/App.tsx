@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen theme-bg theme-text font-sans selection:bg-[var(--accent-primary)] selection:text-white overflow-x-hidden">
+    <div className="min-h-screen theme-bg theme-text font-sans selection:bg-(--accent-primary) selection:text-white overflow-x-hidden">
       {/* Fixed Minimalist Lusion-Style Header */}
       <Header
         onNavigate={scrollToSection}

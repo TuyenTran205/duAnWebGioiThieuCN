@@ -71,8 +71,8 @@ export const Header: React.FC<HeaderProps> = ({
             data-cursor="HOME"
             className="group flex items-center gap-2"
           >
-            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-            <span className="text-base sm:text-xl font-extrabold tracking-tight theme-text uppercase group-hover:text-[var(--accent-primary)] transition-colors truncate max-w-[190px] sm:max-w-none">
+            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-(--accent-primary) animate-pulse" />
+            <span className="text-base sm:text-xl font-extrabold tracking-tight theme-text uppercase group-hover:text-(--accent-primary) transition-colors truncate max-w-[190px] sm:max-w-none">
               {userProfile.name}
             </span>
           </a>
@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-primary)] rounded-full" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-(--accent-primary) rounded-full" />
                 )}
               </button>
             );
@@ -112,21 +112,21 @@ export const Header: React.FC<HeaderProps> = ({
             title={soundEnabled ? 'Tắt âm thanh tương tác' : 'Bật âm thanh tương tác (Lusion Audio)'}
             aria-pressed={soundEnabled}
             data-cursor={soundEnabled ? 'MUTE' : 'SOUND ON'}
-            className="h-8 sm:h-9 px-2.5 sm:px-3 rounded-full border theme-border theme-surface-solid flex items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] theme-text cursor-pointer hover:border-[var(--accent-primary)] transition-colors"
+            className="h-8 sm:h-9 px-2.5 sm:px-3 rounded-full border theme-border theme-surface-solid flex items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] theme-text cursor-pointer hover:border-(--accent-primary) transition-colors"
           >
             <span className="flex items-end gap-0.5 h-3">
               <span
-                className={`w-0.5 h-3 bg-[var(--accent-primary)] origin-bottom transition-transform ${
+                className={`w-0.5 h-3 bg-(--accent-primary) origin-bottom transition-transform ${
                   soundEnabled ? 'sound-bar-active' : 'scale-y-30 opacity-40'
                 }`}
               />
               <span
-                className={`w-0.5 h-3 bg-[var(--accent-primary)] origin-bottom transition-transform [animation-delay:150ms] ${
+                className={`w-0.5 h-3 bg-(--accent-primary) origin-bottom transition-transform [animation-delay:150ms] ${
                   soundEnabled ? 'sound-bar-active' : 'scale-y-50 opacity-40'
                 }`}
               />
               <span
-                className={`w-0.5 h-3 bg-[var(--accent-primary)] origin-bottom transition-transform [animation-delay:300ms] ${
+                className={`w-0.5 h-3 bg-(--accent-primary) origin-bottom transition-transform [animation-delay:300ms] ${
                   soundEnabled ? 'sound-bar-active' : 'scale-y-25 opacity-40'
                 }`}
               />

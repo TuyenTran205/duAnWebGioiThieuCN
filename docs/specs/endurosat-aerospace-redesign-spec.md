@@ -177,7 +177,7 @@ Xóa bỏ hoàn toàn lớp bao bọc `<div className="max-w-2xl bg-white/95 dar
 ```html
 <section id="chuong-X" className="min-h-screen relative flex items-center py-20 px-4 sm:px-8 lg:px-16" aria-label="Chương X">
   <!-- Dải nền gradient tinh tế bảo vệ độ tương phản văn bản mà không che nền 3D -->
-  <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-zinc-950/90 via-zinc-950/60 to-transparent pointer-events-none" />
+  <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-linear-to-r from-zinc-950/90 via-zinc-950/60 to-transparent pointer-events-none" />
 
   <!-- Khối nội dung HUD mở rộng (Width 40-50% màn hình, lệch trái) -->
   <div className="relative z-10 w-full max-w-xl lg:max-w-2xl text-left pointer-events-auto">

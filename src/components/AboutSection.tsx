@@ -20,7 +20,7 @@ export const AboutSection: React.FC = () => {
           className="lg:col-span-5 space-y-5 sm:space-y-6"
         >
           <div className="font-mono text-xs theme-text-muted uppercase tracking-widest flex items-center gap-2">
-            <span className="text-[var(--accent-primary)] font-semibold">[03] BIOGRAPHY & PHILOSOPHY</span>
+            <span className="text-(--accent-primary) font-semibold">[03] BIOGRAPHY & PHILOSOPHY</span>
             <span>/</span>
             <span>VỀ TÔI</span>
           </div>
@@ -30,7 +30,7 @@ export const AboutSection: React.FC = () => {
           </h2>
 
           <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-[rgba(10,11,14,0.1)] space-y-3 sm:space-y-4 font-mono text-xs shadow-sm">
-            <div className="flex items-center gap-2 text-[var(--accent-primary)] font-bold uppercase tracking-wider text-[11px] sm:text-xs">
+            <div className="flex items-center gap-2 text-(--accent-primary) font-bold uppercase tracking-wider text-[11px] sm:text-xs">
               <span>✦</span>
               <span>TURNING IDEAS INTO REALITY</span>
             </div>
