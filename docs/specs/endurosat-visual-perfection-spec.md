@@ -20,7 +20,7 @@ Qua quá trình rà soát mã nguồn hình học 3D và bố cục DOM, đội 
 │ KHẢO SÁT LỖI GIAO DIỆN HIỆN TRẠNG                                                           │
 ├─────────────────────────────────────────────────────────────────────────────────────────────┤
 │ 1. DẢI TRẮNG RÁCH MÉP & SƯƠNG MÙ CẮT ĐÔI MÀN HÌNH:                                          │
-│    - Dải gradient 'bg-gradient-to-r from-zinc-50/90' cắt thô ngang 50% màn hình.            │
+│    - Dải gradient 'bg-linear-to-r from-zinc-50/90' cắt thô ngang 50% màn hình.            │
 │    - Canvas WebGL có 'alpha: true' làm lộ màu nền xám nhạt '#F8F9FA' của Layout.            │
 │    - Thiếu nền Deep Space thuần nhất khiến các vì sao và ánh sáng 3D bị hòa trộn đục ngầu.   │
 ├─────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -53,7 +53,7 @@ Tuân thủ nghiêm ngặt chuẩn mực thiết kế cao cấp của các tập
 ### 2.2 Quy tắc Nền Full-Bleed Vũ trụ (Zero-Bleed Deep Space)
 - Vùng trải nghiệm 3D Scrollytelling tại `Home.tsx` phải có nền không gian sâu thẳm độc lập (`#030305` — Deep Space Vacuum).
 - WebGL Renderer được cấu hình `clearColor: 0x030305, alpha: false` (hoặc nền canvas bọc ngoài màu đen thuần `#030305`), triệt tiêu hoàn toàn hiện tượng dải trắng hay rách mép do màu theme sáng của `Layout.tsx` rò rỉ.
-- Loại bỏ hoàn toàn dải sương mù đục ngầu `bg-gradient-to-r from-zinc-50/90...`. Thay thế bằng kỹ thuật mặt nạ bảo vệ tương phản (Contrast Shield Mask) siêu mỏng, chuyển sắc tinh tế từ `rgba(3, 3, 5, 0.75)` sang `transparent` chỉ giới hạn trong phạm vi cột văn bản.
+- Loại bỏ hoàn toàn dải sương mù đục ngầu `bg-linear-to-r from-zinc-50/90...`. Thay thế bằng kỹ thuật mặt nạ bảo vệ tương phản (Contrast Shield Mask) siêu mỏng, chuyển sắc tinh tế từ `rgba(3, 3, 5, 0.75)` sang `transparent` chỉ giới hạn trong phạm vi cột văn bản.
 
 ### 2.3 Nguyên tắc Anti-AI nghiêm ngặt
 - **Không màu Gradient Neon:** Cấm màu tím, hồng, xanh neon kiểu AI. Bảng màu tuân theo chuẩn kỹ thuật hàng không: Đen chân không (`#030305`), Trắng bạc titan (`#F8FAFC`), Xám kim loại (`#71717A`), Vàng bọc cách nhiệt MLI (`#D4AF37`), Xanh thẫm quang điện (`#0A192F`), Điểm nhấn đỏ đất TLU (`#B3361C`).
@@ -172,7 +172,7 @@ Thay thế cụm nút bấm to dày hiện tại ở góc phải dưới bằng 
 
 | STT | Đường dẫn tệp tin | Trách nhiệm kiến trúc |
 | :--- | :--- | :--- |
-| 1 | `src/components/public/PinnedScrollytelling.tsx` | - Xóa bỏ triệt để dải sương mù đục `bg-gradient-to-r from-zinc-50/90...`.<br>- Bổ sung lớp che chắn tương phản chuyên dụng (Contrast Shield).<br>- Điều chỉnh giới hạn cột văn bản bên trái sang $0\% - 46\%$ viewport width.<br>- Đồng bộ lớp nền vũ trụ trong suốt với canvas WebGL. |
+| 1 | `src/components/public/PinnedScrollytelling.tsx` | - Xóa bỏ triệt để dải sương mù đục `bg-linear-to-r from-zinc-50/90...`.<br>- Bổ sung lớp che chắn tương phản chuyên dụng (Contrast Shield).<br>- Điều chỉnh giới hạn cột văn bản bên trái sang $0\% - 46\%$ viewport width.<br>- Đồng bộ lớp nền vũ trụ trong suốt với canvas WebGL. |
 | 2 | `src/three/leaderLines.ts` | - Cập nhật `DEFAULT_LEADER_ANCHORS`: chuyển toàn bộ nhãn sang `side: 'right'` hoặc neo an toàn trên thân vệ tinh.<br>- Cập nhật hàm `calculateLeaderLines`: áp dụng thuật toán Safe-Zone Exclusion, cấm `endX` xâm phạm vào vùng văn bản bên trái ($X < \text{safeLeftBound}$).<br>- Đảm bảo tương thích ngược 100% với các test suite hiện tại. |
 | 3 | `src/components/public/LeaderLinesOverlay.tsx` | - Định vị hộp HUD vi mô sắc nét, căn lề thông minh theo `side`.<br>- Tinh chỉnh kích thước hộp HUD theo chuẩn Anti-AI (hairline border $0.5\text{px}$, không shadow lòe loẹt, typography $9\text{px} - 10\text{px}$). |
 | 4 | `src/three/states.ts` | - Cập nhật ma trận tọa độ `cameraPosition` và `cameraTarget` của 5 chương theo Bảng Tọa độ Điện ảnh Mới.<br>- Đảm bảo tâm vệ tinh luôn nằm ở $64\% - 72\%$ chiều rộng màn hình desktop. |

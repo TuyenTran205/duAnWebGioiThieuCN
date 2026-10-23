@@ -366,7 +366,7 @@ Doi ngu `auto-tester` (Subagent 3) bat buoc phai viet va thuc thi thanh cong 100
 ### 6.4 Component & Anti-AI UI Tests (`src/test/components/PinnedScrollytelling.test.tsx`)
 - **TEST-UI-01:** Render du 5 chuong noi dung voi dung ma dinh danh (`[01 // PRODUCT HERO]`, `[02 // INDUSTRIAL DESIGN]`, v.v.).
 - **TEST-UI-02:** Khong chua bat ky emoji nao trong toan bo nut bam, tieu de va the noi dung.
-- **TEST-UI-03:** Khong chua bat ky lop gradient tim/hong (`bg-gradient-to-*` mau tim/xanh AI) tren toan bo giao dien.
+- **TEST-UI-03:** Khong chua bat ky lop gradient tim/hong (`bg-linear-to-*` mau tim/xanh AI) tren toan bo giao dien.
 - **TEST-UI-04:** Toan bo duong vien card deu dat chuan hairline border `0.5px` hoac `1px`, border radius `0px` hoac toi da `4px`.
 - **TEST-UI-05:** Tich hop dung lien ket skip-to-content dat chuan Accessibility WCAG AAA.
 
