@@ -73,7 +73,7 @@ describe('Kiểm tra Bảo mật Dữ liệu & XSS Sanitization', () => {
       expect(isSafeUrl('https://www.linkedin.com')).toBe(true);
       expect(isSafeUrl('http://localhost:3000')).toBe(true);
       expect(isSafeUrl('http://localhost:5173')).toBe(true);
-      expect(isSafeUrl('mailto:tuyentran2005@gmail.com')).toBe(true);
+      expect(isSafeUrl('mailto:tranvantuyen.dev@gmail.com')).toBe(true);
       expect(isSafeUrl('#')).toBe(true);
       expect(isSafeUrl('#hero')).toBe(true);
       expect(isSafeUrl('#projects')).toBe(true);

@@ -71,7 +71,7 @@ export const userProfile: Profile = {
     },
     socials: [
         { label: "GitHub", href: "https://github.com/TuyenTran205", icon: "github" },
-        { label: "Email", href: "mailto:tuyentran2005@gmail.com", icon: "mail" },
+        { label: "Email", href: "mailto:tranvantuyen.dev@gmail.com", icon: "mail" },
         { label: "LinkedIn", href: "https://www.linkedin.com", icon: "linkedin" },
     ],
 };

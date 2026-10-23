@@ -7,7 +7,7 @@ import { getSafeUrl } from '../lib/security';
 export const FooterSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
-  const email = 'tuyentran2005@gmail.com';
+  const email = 'tranvantuyen.dev@gmail.com';
 
   const handleCopyEmail = () => {
     soundEngine.playClick();

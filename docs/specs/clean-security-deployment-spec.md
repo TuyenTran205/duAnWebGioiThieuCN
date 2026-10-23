@@ -297,7 +297,7 @@ Trong quá trình lặp thiết kế, đội ngũ đã tạo ra 6 bản đặc t
 
 #### 3. Kiểm tra Clipboard API Injection:
 - Tại `FooterSection.tsx:11-16`, hàm `handleCopyEmail` gọi `navigator.clipboard.writeText(email)`.
-- Biến `email` được hardcode an toàn là `'tuyentran2005@gmail.com'`, không nhận đầu vào từ query string hay user input, không có nguy cơ Clipboard Hijacking.
+- Biến `email` được hardcode an toàn là `'tranvantuyen.dev@gmail.com'`, không nhận đầu vào từ query string hay user input, không có nguy cơ Clipboard Hijacking.
 
 ---
 
