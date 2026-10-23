@@ -62,17 +62,22 @@ export const projectsData: Project[] = [
   },
   {
     id: '4',
-    code: 'HUB-04',
-    title: 'TLU Document & Academic Hub',
-    category: 'Full-stack Web & Academic',
-    tags: ['web', 'react', 'typescript', 'education'],
-    description: 'Cổng thông tin chia sẻ tài liệu học tập và hồ sơ sinh viên Khoa CNTT - Đại học Thủy lợi.',
-    longDescription: 'Nền tảng web hỗ trợ tra cứu, tìm kiếm và lưu trữ tài liệu môn học, đồ án và tài nguyên học thuật dành cho sinh viên Đại học Thủy Lợi. Tối ưu giao diện nhanh gọn, trực quan và tiện dụng.',
-    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Supabase'],
-    highlights: ['Tra cứu tài liệu theo học kỳ & môn học', 'Xem trước tài liệu PDF trực tuyến', 'Giao diện tối giản chuẩn công thái học', 'Hệ thống đánh dấu tài liệu yêu thích'],
-    link: 'https://github.com/TuyenTran205/duAnWebGioiThieuCN',
-    github: 'https://github.com/TuyenTran205/duAnWebGioiThieuCN',
-    year: '2025',
-    status: 'Completed'
+    code: 'SPT-04',
+    title: 'BookSportsCourt — Nền tảng đặt sân thể thao trực tuyến',
+    category: 'Full-stack Web & Sports Booking',
+    tags: ['web', 'booking', 'sports', 'fullstack'],
+    description: 'Hệ thống đặt sân thể thao trực tuyến hỗ trợ tìm kiếm sân, giữ chỗ theo khung giờ thời gian thực và quản lý lịch sân chuyên nghiệp (Dự án nhóm).',
+    longDescription: 'Dự án phối hợp nhóm xây dựng nền tảng đặt sân thể thao online (Bóng đá, Cầu lông, Pickleball, Tennis...). Cung cấp giao diện trực quan cho người chơi tìm sân theo khu vực, kiểm tra lịch trống và đặt chỗ nhanh chóng, đồng thời cung cấp hệ thống quản trị chuyên dụng cho chủ sân theo dõi doanh thu và điều phối sân bãi.',
+    technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'Tailwind CSS', 'PostgreSQL / MySQL'],
+    highlights: [
+      'Đặt sân & giữ chỗ thể thao theo khung giờ thực',
+      'Quản lý lịch sân đa cụm cho chủ cơ sở thể thao',
+      'Tích hợp xác thực phân quyền người dùng & chủ sân',
+      'Dự án phối hợp nhóm tối ưu theo quy trình Agile'
+    ],
+    link: 'https://github.com/TuyenTran205/bookSportsCourt',
+    github: 'https://github.com/TuyenTran205/bookSportsCourt',
+    year: '2025 - 2026',
+    status: 'In Development'
   }
 ];

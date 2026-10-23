@@ -115,16 +115,26 @@ const ProjectCardItem: React.FC<ProjectCardProps> = ({
           <svg
             viewBox="0 0 240 140"
             className={`w-48 h-32 stroke-[#1a2ffb] fill-none transition-transform duration-700 ease-out ${
-              isHovered ? 'scale-115' : 'scale-100'
+              isHovered ? 'scale-115 rotate-1' : 'scale-100'
             }`}
             strokeWidth="1.3"
           >
-            <rect x="36" y="24" width="168" height="92" rx="8" />
-            <line x1="36" y1="46" x2="204" y2="46" />
-            <line x1="82" y1="46" x2="82" y2="116" />
-            <line x1="98" y1="66" x2="184" y2="66" />
-            <line x1="98" y1="84" x2="164" y2="84" />
-            <line x1="98" y1="100" x2="142" y2="100" />
+            {/* Outer Court Boundary */}
+            <rect x="24" y="20" width="192" height="100" rx="8" />
+            {/* Center Half-Court Line */}
+            <line x1="120" y1="20" x2="120" y2="120" strokeDasharray="4 3" />
+            {/* Center Circle & Spot */}
+            <circle cx="120" cy="70" r="22" strokeDasharray="3 2" />
+            <circle cx="120" cy="70" r="3" className="fill-[#1a2ffb]" />
+            {/* Left Court Key / Box */}
+            <rect x="24" y="42" width="36" height="56" rx="4" />
+            {/* Right Court Key / Box */}
+            <rect x="180" y="42" width="36" height="56" rx="4" />
+            {/* Real-time active reserved slot indicators */}
+            <circle cx="160" cy="54" r="5" className="fill-[#1a2ffb]/20" />
+            <circle cx="160" cy="54" r="2.5" className="fill-[#1a2ffb]" />
+            <circle cx="80" cy="86" r="5" className="fill-[#1a2ffb]/20" />
+            <circle cx="80" cy="86" r="2.5" className="fill-[#1a2ffb]" />
           </svg>
         )}
 
